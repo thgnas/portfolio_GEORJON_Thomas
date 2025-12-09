@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon SVG (T bleu) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22%230ea5e9%22>T</text></svg>">
+    
     <title>Portfolio - Thomas Georjon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -20,27 +23,54 @@
                             DEFAULT: '#0ea5e9', // sky-500
                             dark: '#0369a1', // sky-700
                         }
+                    },
+                    animation: {
+                        'float': 'float 10s infinite ease-in-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
         }
     </script>
     <style>
+        /* Loader styles */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        #preloader.hidden-loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         .blob {
             position: absolute;
             filter: blur(80px);
             z-index: -1;
             opacity: 0.5;
-            animation: float 10s infinite ease-in-out;
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smooth parallax */
         }
+        
+        /* Animation flottante par défaut (désactivée si JS parallax actif pour éviter conflit, ou combinée) */
         @keyframes float {
             0%, 100% { transform: translateY(0) scale(1); }
             50% { transform: translateY(-20px) scale(1.05); }
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px rgb(14 165 233 / 0.15); /* Ombre colorée subtile */
+        }
+        
         /* Styles pour le Modal */
         .modal {
             transition: opacity 0.3s ease-in-out;
@@ -53,17 +83,17 @@
         }
         .modal-content {
             transform: scale(0.95);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Effet rebond à l'ouverture */
         }
         .modal.active .modal-content {
             transform: scale(1);
         }
 
-        /* --- NOUVEAU : Animation au Scroll (Scroll Reveal) --- */
+        /* Animation au Scroll (Scroll Reveal) */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
         .reveal.active {
             opacity: 1;
@@ -73,29 +103,76 @@
         .delay-100 { transition-delay: 0.1s; }
         .delay-200 { transition-delay: 0.2s; }
         .delay-300 { transition-delay: 0.3s; }
+
+        /* Curseur machine à écrire */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+            color: #0ea5e9;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Lien actif dans la navbar */
+        .nav-link.active {
+            color: #0ea5e9;
+            font-weight: 600;
+        }
+        
+        /* Skill Tag Hover */
+        .skill-tag {
+            transition: all 0.2s;
+        }
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand selection:text-white">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand selection:text-white overflow-x-hidden">
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="text-center">
+            <div class="text-4xl md:text-6xl font-bold font-display tracking-tight text-slate-900 mb-2">
+                GEORJON<span class="text-brand">.</span>
+            </div>
+            <div class="h-1 w-16 bg-brand mx-auto rounded-full animate-pulse"></div>
+        </div>
+    </div>
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300" id="navbar">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Ajout d'un lien sur le Logo pour remonter en haut -->
-            <a href="#" class="text-xl font-bold tracking-tight text-slate-900 font-display hover:opacity-80 transition">GEORJON<span class="text-brand">.</span></a>
+            <a href="#" onclick="scrollToTop(); return false;" class="text-xl font-bold tracking-tight text-slate-900 font-display hover:opacity-80 transition">GEORJON<span class="text-brand">.</span></a>
             <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
-                <a href="#about" class="hover:text-brand transition">À propos</a>
-                <a href="#experience" class="hover:text-brand transition">Expérience</a>
-                <a href="#skills" class="hover:text-brand transition">Compétences</a>
-                <a href="#projets" class="hover:text-brand transition">Projets</a>
+                <a href="#about" class="nav-link hover:text-brand transition relative group">
+                    À propos
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#experience" class="nav-link hover:text-brand transition relative group">
+                    Expérience
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#skills" class="nav-link hover:text-brand transition relative group">
+                    Compétences
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#projets" class="nav-link hover:text-brand transition relative group">
+                    Projets
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand transition-all group-hover:w-full"></span>
+                </a>
             </div>
             
             <!-- Bouton Contact et Social Navbar -->
             <div class="flex items-center gap-3">
-                 <!-- LinkedIn Icon (Mise à jour lien) -->
-                <a href="https://www.linkedin.com/in/thomas-georjon" target="_blank" class="hidden sm:flex text-slate-400 hover:text-[#0077b5] transition">
+                 <!-- LinkedIn Icon -->
+                <a href="https://www.linkedin.com/in/thomas-georjon" target="_blank" class="hidden sm:flex text-slate-400 hover:text-[#0077b5] transition transform hover:scale-110">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
-                <a href="mailto:thomas.georjon@icloud.com" class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
+                <a href="mailto:thomas.georjon@icloud.com" class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-900/20 hover:-translate-y-0.5">
                     Me Contacter
                 </a>
             </div>
@@ -103,21 +180,22 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center pt-28 pb-20 relative overflow-hidden">
-        <!-- Background Blobs -->
-        <div class="blob bg-sky-300 w-96 h-96 rounded-full top-0 left-0 translate-y-1/2 -translate-x-1/4"></div>
-        <div class="blob bg-indigo-200 w-80 h-80 rounded-full bottom-0 right-0 -translate-y-1/2 translate-x-1/4"></div>
+    <section id="home" class="min-h-screen flex items-center justify-center pt-28 pb-20 relative overflow-hidden">
+        <!-- Background Blobs (Parallax Targets) -->
+        <div data-speed="0.05" class="blob bg-sky-300 w-96 h-96 rounded-full top-0 left-0 translate-y-1/2 -translate-x-1/4 mix-blend-multiply"></div>
+        <div data-speed="0.08" class="blob bg-indigo-200 w-80 h-80 rounded-full bottom-0 right-0 -translate-y-1/2 translate-x-1/4 mix-blend-multiply"></div>
+        <div data-speed="0.02" class="blob bg-purple-100 w-64 h-64 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mix-blend-multiply opacity-30"></div>
 
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             
             <!-- Photo de Profil -->
-            <div class="mb-8 relative inline-block reveal active">
-                <div class="absolute inset-0 bg-brand blur-2xl opacity-20 rounded-full transform scale-110"></div>
-                <img src="profil.png" alt="Thomas Georjon" class="relative w-32 h-32 md:w-44 md:h-44 rounded-full object-cover border-4 border-white shadow-xl mx-auto ring-1 ring-slate-100">
+            <div class="mb-8 relative inline-block reveal active group">
+                <div class="absolute inset-0 bg-brand blur-2xl opacity-20 rounded-full transform scale-110 group-hover:opacity-40 transition-opacity duration-500"></div>
+                <img src="profil.png" alt="Thomas Georjon" class="relative w-32 h-32 md:w-44 md:h-44 rounded-full object-cover border-4 border-white shadow-xl mx-auto ring-1 ring-slate-100 transform transition duration-500 group-hover:scale-105">
             </div>
 
             <div class="block mb-6 reveal delay-100 active">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-sky-50 text-brand-dark text-sm font-bold border border-sky-100 shadow-sm flex items-center gap-2 mx-auto w-fit">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-sky-50 text-brand-dark text-sm font-bold border border-sky-100 shadow-sm flex items-center gap-2 mx-auto w-fit hover:bg-sky-100 transition cursor-default">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
@@ -129,22 +207,25 @@
             <h1 class="text-5xl md:text-7xl font-bold mb-6 text-slate-900 font-display tracking-tight leading-tight reveal delay-200 active">
                 Thomas <br> <span class="text-brand">Georjon</span>
             </h1>
-            <p class="text-xl text-slate-500 mb-2 font-medium reveal delay-300 active">Ingénierie de la Santé & Data</p>
+            
+            <!-- Typing Effect Container -->
+            <p class="text-xl text-slate-500 mb-2 font-medium reveal delay-300 active min-h-[1.75rem]">
+                <span id="typewriter" class="typing-cursor"></span>
+            </p>
+
             <p class="text-lg text-slate-500 mb-8 max-w-2xl mx-auto font-light leading-relaxed reveal delay-300 active">
             Ingénieur généraliste en dernière année à l’EPF, avec une spécialisation en santé, je recherche un stage à partir de février. Curieux et motivé, je souhaite relever de nouveaux défis et acquérir une expérience solide dans des environnements stimulants.
             </p>
             
-            <!-- Liens Sociaux & CV (Modifiés) -->
+            <!-- Liens Sociaux & CV -->
             <div class="flex justify-center gap-4 mb-10 reveal delay-300 active">
-                 <!-- LinkedIn (Mise à jour lien) -->
-                 <a href="https://www.linkedin.com/in/thomas-georjon" target="_blank" class="p-2 text-slate-400 hover:text-[#0077b5] hover:bg-sky-50 rounded-full transition" title="LinkedIn">
+                 <!-- LinkedIn -->
+                 <a href="https://www.linkedin.com/in/thomas-georjon" target="_blank" class="p-2 text-slate-400 hover:text-[#0077b5] hover:bg-sky-50 rounded-full transition transform hover:scale-110" title="LinkedIn">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
                 
-                 <!-- GitHub SUPPRIMÉ -->
-
-                 <!-- Bouton CV (Téléchargement mis à jour) -->
-                 <a href="CV_Georjon_Thomas_Généraliste.pdf" class="flex items-center gap-2 px-4 py-1.5 text-sm font-semibold text-brand bg-brand/10 hover:bg-brand/20 rounded-full transition border border-brand/20" download>
+                 <!-- Bouton CV -->
+                 <a href="CV_Georjon_Thomas_Généraliste.pdf" class="flex items-center gap-2 px-4 py-1.5 text-sm font-semibold text-brand bg-brand/10 hover:bg-brand/20 rounded-full transition border border-brand/20 hover:-translate-y-1" download>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Télécharger CV
                 </a>
@@ -157,7 +238,7 @@
                 
                 <!-- Bouton Trigger Modal -->
                 <button onclick="toggleModal()" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full font-semibold hover:bg-indigo-100 transition flex items-center justify-center gap-2 transform hover:scale-105 duration-200">
-                    <span></span> Ce qui m'anime
+                    <span>✨</span> Ce qui m'anime
                 </button>
             </div>
         </div>
@@ -169,7 +250,7 @@
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="toggleModal()"></div>
         
         <!-- Modal Content -->
-        <div class="modal-content bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden max-h-[90vh] overflow-y-auto">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden max-h-[90vh] overflow-y-auto transform transition-all">
             
             <!-- Header du Modal -->
             <div class="bg-gradient-to-r from-brand to-indigo-500 p-6 flex justify-between items-center sticky top-0 z-20">
@@ -183,9 +264,9 @@
 
             <div class="p-8 space-y-8">
                 <!-- Section 1 : Uniformisé -->
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce qui m’inspire
+                        <span class="text-2xl">🌏</span> Ce qui m’inspire
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         J’adore voyager : découvrir de nouvelles cultures, rencontrer des gens et me laisser surprendre par ce que je ne connais pas encore. Mon voyage en Indonésie m’a particulièrement marqué, autant pour la richesse de la culture que pour l’énergie du pays. J’ai aussi eu la chance d'explorer plusieurs pays d’Europe, ce qui a renforcé mon goût pour l’ouverture et la curiosité.
@@ -193,9 +274,9 @@
                 </div>
 
                 <!-- Section 2 : Uniforme -->
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce qui me motive
+                        <span class="text-2xl">🏃‍♂️</span> Ce qui me motive
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         J’aime me challenger et sortir de ma zone de confort. Le sport fait partie de mes activités, et j’apprécie me fixer des objectifs comme le semi-marathon de Paris, qui m’a permis de tester mes limites et de vivre une belle expérience.
@@ -203,9 +284,9 @@
                 </div>
 
                 <!-- Section 3 : Uniformisé -->
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce que j’aime au quotidien
+                        <span class="text-2xl">✨</span> Ce que j’aime au quotidien
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         Je suis quelqu’un de curieux, qui aime apprendre, expérimenter et vivre de nouvelles expériences. Que ce soit à travers un voyage, un défi sportif ou une rencontre, j’aime découvrir et profiter pleinement de ce qui se présente.
@@ -261,7 +342,7 @@
                         <div class="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
                              <div class="bg-slate-100 p-2 rounded-lg text-slate-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /> <!-- Icone générique pour illustrer la mobilité -->
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /> 
                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                              </div>
@@ -271,20 +352,21 @@
                 </div>
                 
                 <!-- Timeline Formation -->
-                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 reveal delay-200">
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 reveal delay-200 hover:shadow-lg transition-shadow duration-300">
                     <h3 class="text-2xl font-bold font-display mb-6 text-slate-900">Formation</h3>
-                    <div class="space-y-8 border-l-2 border-slate-200 pl-6 ml-2">
+                    <div class="space-y-12 border-l-2 border-slate-200 pl-8 ml-2 relative">
+                        <!-- Connecteur Vertical prolongé -->
                         
                         <div class="relative group">
-                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-brand border-4 border-white shadow-sm group-hover:scale-125 transition"></div>
+                            <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-brand border-4 border-white shadow-md group-hover:scale-125 group-hover:bg-sky-400 transition"></div>
                             <h4 class="text-lg font-bold text-slate-900">Cycle Ingénieur Généraliste</h4>
                             <p class="text-brand font-medium text-sm">EPF École d'ingénieurs • Cachan</p>
                             <p class="text-slate-500 text-sm mt-1">Sept 2021 - Présent (Master 2 en cours)</p>
-                            <p class="text-slate-500 text-sm mt-2 italic">Spécialisation Ingénierie de la Santé</p>
+                            <p class="text-slate-500 text-sm mt-2 italic bg-white inline-block px-2 py-0.5 rounded border border-slate-100">Spécialisation Ingénierie de la Santé</p>
                         </div>
 
                         <div class="relative group">
-                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-slate-300 border-4 border-white shadow-sm group-hover:scale-125 transition"></div>
+                            <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-slate-300 border-4 border-white shadow-md group-hover:scale-125 transition"></div>
                             <h4 class="text-lg font-bold text-slate-900">Baccalauréat Scientifique</h4>
                             <p class="text-slate-700 font-medium text-sm">Lycée Jules Ferry • Versailles</p>
                             <p class="text-slate-500 text-sm mt-1">Juin 2021</p>
@@ -302,7 +384,7 @@
             
             <div class="space-y-6">
                 <!-- Exp 1 : Louis Vuitton -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Janv 2025 – Juin 2025</p>
                         <h4 class="font-bold text-lg mt-1">Louis Vuitton</h4>
@@ -315,7 +397,7 @@
                 </div>
 
                 <!-- Exp 2 : PT HAPETE -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Sept 2024 – Déc 2024</p>
                         <h4 class="font-bold text-lg mt-1">PT. HAPETE</h4>
@@ -328,7 +410,7 @@
                 </div>
 
                 <!-- Exp 3 : Balenciaga -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Juin – Juil 2024</p>
                         <h4 class="font-bold text-lg mt-1">Balenciaga</h4>
@@ -341,7 +423,7 @@
                 </div>
 
                 <!-- Exp 4 : Stellantis -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Juin – Juil 2022</p>
                         <h4 class="font-bold text-lg mt-1">Stellantis</h4>
@@ -366,23 +448,23 @@
                 <div class="reveal delay-100">
                     <h4 class="font-bold text-slate-900 mb-4 border-b pb-2">Programmation & Data</h4>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Python</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">MATLAB</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">SQL</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">VBA</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Arduino</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Power BI</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">Python</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">MATLAB</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">SQL</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">VBA</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">Arduino</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">Power BI</span>
                     </div>
                 </div>
                 <!-- Colonne 2 -->
                 <div class="reveal delay-200">
                     <h4 class="font-bold text-slate-900 mb-4 border-b pb-2">Conception & Outils</h4>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">SolidWorks</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">CATIA</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Vicon</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Figma</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Pack Office</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">SolidWorks</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">CATIA</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">Vicon</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">Figma</span>
+                        <span class="skill-tag px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white hover:border-brand cursor-default">Pack Office</span>
                     </div>
                 </div>
             </div>
@@ -402,6 +484,7 @@
                     <div class="h-64 overflow-hidden relative">
                          <!-- Image mise à jour -->
                         <img src="avecesar.jpg" alt="Projet Chirurgie - AVE César" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition"></div>
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold mb-2 font-display text-slate-900 group-hover:text-brand transition">Projet AVE César</h3>
@@ -535,38 +618,110 @@
             
             <!-- Réseaux Sociaux Footer -->
             <div class="flex justify-center gap-6 mb-8">
-                 <!-- LinkedIn (Mise à jour) -->
+                 <!-- LinkedIn -->
                  <a href="https://www.linkedin.com/in/thomas-georjon" target="_blank" class="text-slate-400 hover:text-white transition transform hover:scale-110">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
-                <!-- GitHub SUPPRIMÉ -->
             </div>
 
             <div class="text-slate-600 text-sm">
-                &copy; 2024 Thomas Georjon.
+                &copy; <span id="year"></span> Thomas Georjon.
             </div>
         </div>
     </footer>
 
-    <!-- Scripts pour le Modal et l'Animation -->
+    <!-- Bouton Retour en Haut -->
+    <button id="backToTop" onclick="scrollToTop()" class="fixed bottom-8 right-8 bg-slate-900 text-white p-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:bg-brand z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <!-- Scripts -->
     <script>
-        // Force scroll to top on load
+        // --- 0. Preloader & Initialisation ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden-loader');
+                // Supprime le loader du DOM après l'animation pour libérer la mémoire/clics
+                setTimeout(() => preloader.style.display = 'none', 600);
+            }, 800); // Temps minimal d'affichage du nom
+        });
+
+        // --- 1. Gestion du Scroll Reset ---
         history.scrollRestoration = "manual";
         window.scrollTo(0, 0);
 
-        // Toggle Modal
+        // --- 2. Modal ---
         function toggleModal() {
             const modal = document.getElementById('inspirationModal');
             modal.classList.toggle('active');
         }
 
-        // Animation au Scroll (Intersection Observer)
+        // --- 3. Animation Typewriter (Machine à écrire) ---
+        const textToType = "Ingénierie de la Santé & Data";
+        const typeWriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.textContent += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50); 
+            } else {
+                setTimeout(() => {
+                    typeWriterElement.classList.remove('typing-cursor');
+                }, 2000);
+            }
+        }
+        
+        setTimeout(typeWriter, 1200); // Démarrage retardé à cause du preloader
+
+        // --- 4. Scroll Spy (Navigation Active) ---
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        function activeMenu() {
+            let len = sections.length;
+            while (--len && window.scrollY + 100 < sections[len].offsetTop) {}
+            navLinks.forEach(ltx => ltx.classList.remove("active"));
+            if (len >= 0 && navLinks[len]) { 
+                 // Note: sections[0] = home, mais liens commencent à about
+                 // Il faut mapper manuellement si home n'est pas dans la navbar
+                 // Mais ici on map "À propos" vers sections[1] etc.
+                 // Simplification: on check l'ID
+                 const currentId = sections[len].getAttribute('id');
+                 const activeLink = document.querySelector(`.nav-link[href="#${currentId}"]`);
+                 if(activeLink) activeLink.classList.add("active");
+            }
+        }
+        window.addEventListener("scroll", activeMenu);
+
+        // --- 5. Back to Top Button ---
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove("opacity-0", "pointer-events-none");
+            } else {
+                backToTopBtn.classList.add("opacity-0", "pointer-events-none");
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 6. Année Dynamique ---
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+
+        // --- 7. Animation Scroll Reveal ---
         document.addEventListener('DOMContentLoaded', function() {
-            // Force scroll top again on DOM ready to be safe
             window.scrollTo(0, 0);
 
             const observerOptions = {
-                threshold: 0.1, // Déclenche quand 10% de l'élément est visible
+                threshold: 0.1,
                 rootMargin: "0px 0px -50px 0px"
             };
 
@@ -580,6 +735,26 @@
 
             const revealElements = document.querySelectorAll('.reveal');
             revealElements.forEach(el => observer.observe(el));
+        });
+
+        // --- 8. Parallax Mouse Effect (Blobs) ---
+        document.addEventListener('mousemove', function(e) {
+            const blobs = document.querySelectorAll('.blob');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            blobs.forEach(blob => {
+                const speed = blob.getAttribute('data-speed');
+                const xOffset = (window.innerWidth - e.clientX * speed) / 100;
+                const yOffset = (window.innerHeight - e.clientY * speed) / 100;
+                
+                // On applique un léger déplacement opposé à la souris
+                // data-speed détermine l'intensité
+                const moveX = (x - 0.5) * (speed * 500); 
+                const moveY = (y - 0.5) * (speed * 500);
+
+                blob.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
         });
     </script>
 
