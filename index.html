@@ -57,12 +57,6 @@
             transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smooth parallax */
         }
         
-        /* Animation flottante par défaut (désactivée si JS parallax actif pour éviter conflit, ou combinée) */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-20px) scale(1.05); }
-        }
-
         .card-hover {
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -127,6 +121,55 @@
         .skill-tag:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        /* --- FLIP CARD STYLES (NOUVEAU) --- */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 120px; /* Hauteur fixe pour uniformité */
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+        }
+
+        .flip-card-front {
+            background-color: white;
+            color: #0f172a; /* slate-900 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+        }
+
+        .flip-card-back {
+            background-color: #0ea5e9; /* brand color */
+            color: white;
+            transform: rotateY(180deg);
+            border: 1px solid #0ea5e9;
         }
     </style>
 </head>
@@ -238,7 +281,7 @@
                 
                 <!-- Bouton Trigger Modal -->
                 <button onclick="toggleModal()" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full font-semibold hover:bg-indigo-100 transition flex items-center justify-center gap-2 transform hover:scale-105 duration-200">
-                    <span></span> Ce qui m'anime
+                    <span>✨</span> Ce qui m'anime
                 </button>
             </div>
         </div>
@@ -266,7 +309,7 @@
                 <!-- Section 1 : Uniformisé -->
                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce qui m’inspire
+                        <span class="text-2xl">🌏</span> Ce qui m’inspire
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         J’adore voyager : découvrir de nouvelles cultures, rencontrer des gens et me laisser surprendre par ce que je ne connais pas encore. Mon voyage en Indonésie m’a particulièrement marqué, autant pour la richesse de la culture que pour l’énergie du pays. J’ai aussi eu la chance d'explorer plusieurs pays d’Europe, ce qui a renforcé mon goût pour l’ouverture et la curiosité.
@@ -276,7 +319,7 @@
                 <!-- Section 2 : Uniforme -->
                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce qui me motive
+                        <span class="text-2xl">🏃‍♂️</span> Ce qui me motive
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         J’aime me challenger et sortir de ma zone de confort. Le sport fait partie de mes activités, et j’apprécie me fixer des objectifs comme le semi-marathon de Paris, qui m’a permis de tester mes limites et de vivre une belle expérience.
@@ -286,7 +329,7 @@
                 <!-- Section 3 : Uniformisé -->
                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce que j’aime au quotidien
+                        <span class="text-2xl">✨</span> Ce que j’aime au quotidien
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         Je suis quelqu’un de curieux, qui aime apprendre, expérimenter et vivre de nouvelles expériences. Que ce soit à travers un voyage, un défi sportif ou une rencontre, j’aime découvrir et profiter pleinement de ce qui se présente.
@@ -438,7 +481,7 @@
         </div>
     </section>
 
-    <!-- Section Compétences -->
+    <!-- Section Compétences Techniques -->
     <section id="skills" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900 reveal">Compétences Techniques</h2>
@@ -471,8 +514,203 @@
         </div>
     </section>
 
+    <!-- NOUVELLE SECTION SOFT SKILLS -->
+    <section id="soft-skills" class="py-20 bg-slate-50 relative overflow-hidden">
+        <!-- Blobs d'arrière-plan pour l'ambiance -->
+        <div class="blob bg-purple-200 w-64 h-64 rounded-full top-10 left-10 opacity-30 mix-blend-multiply blur-3xl"></div>
+        <div class="blob bg-sky-200 w-64 h-64 rounded-full bottom-10 right-10 opacity-30 mix-blend-multiply blur-3xl"></div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <h2 class="text-3xl font-bold font-display mb-4 text-center text-slate-900 reveal">Soft Skills</h2>
+            <p class="text-center text-slate-500 mb-12 max-w-2xl mx-auto reveal">Cliquez sur une carte pour découvrir la définition de mes atouts personnels.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- 1. Travail d'équipe -->
+                <div class="reveal delay-100">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🤝</span>
+                                <h4 class="font-bold text-slate-800">Travail d’équipe</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Capable de collaborer efficacement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Autonomie -->
+                <div class="reveal delay-100">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🚀</span>
+                                <h4 class="font-bold text-slate-800">Autonomie</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Sait gérer ses projets seul</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Curiosité -->
+                <div class="reveal delay-100">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">💡</span>
+                                <h4 class="font-bold text-slate-800">Curiosité</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Toujours prêt à découvrir de nouvelles choses</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Adaptabilité -->
+                <div class="reveal delay-100">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🦎</span>
+                                <h4 class="font-bold text-slate-800">Adaptabilité</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Sait s’adapter à différents environnements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Esprit d'initiative -->
+                <div class="reveal delay-200">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🎯</span>
+                                <h4 class="font-bold text-slate-800">Esprit d’initiative</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Aime se lancer des objectifs et relever des défis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Organisation -->
+                <div class="reveal delay-200">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">📅</span>
+                                <h4 class="font-bold text-slate-800">Organisation</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Sait planifier et prioriser ses tâches</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Persévérance -->
+                <div class="reveal delay-200">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">💪</span>
+                                <h4 class="font-bold text-slate-800">Persévérance</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Ne se décourage pas facilement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Leadership -->
+                <div class="reveal delay-200">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🦁</span>
+                                <h4 class="font-bold text-slate-800">Leadership</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Sait motiver et guider une équipe</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Esprit critique -->
+                <div class="reveal delay-300">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🧠</span>
+                                <h4 class="font-bold text-slate-800">Esprit critique</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Analyse et évalue les situations avant d’agir</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. Empathie -->
+                <div class="reveal delay-300">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">❤️</span>
+                                <h4 class="font-bold text-slate-800">Empathie</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Comprend les besoins et points de vue des autres</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11. Gestion du stress -->
+                <div class="reveal delay-300">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🧘</span>
+                                <h4 class="font-bold text-slate-800">Gestion du stress</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Garde son calme et sa clarté dans les situations tendues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12. Ouverture d'esprit -->
+                <div class="reveal delay-300">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front flex-col gap-2">
+                                <span class="text-2xl">🌍</span>
+                                <h4 class="font-bold text-slate-800">Ouverture d’esprit</h4>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-sm font-medium">Accepte et valorise les perspectives différentes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Section Projets (VERTICAL) -->
-    <section id="projets" class="py-24 bg-slate-50">
+    <section id="projets" class="py-24 bg-white">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl font-bold font-display mb-12 text-center text-slate-900 reveal">Projets & Réalisations</h2>
             
@@ -760,4 +998,3 @@
 
 </body>
 </html>
-
