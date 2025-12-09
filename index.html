@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Thomas Georjon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['League Spartan', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#e0f2fe', // sky-100
+                            DEFAULT: '#0ea5e9', // sky-500
+                            dark: '#0369a1', // sky-700
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tight text-slate-900 font-display">GEORJON<span class="text-brand">.</span></div>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-brand transition">À propos</a>
+                <a href="#experience" class="hover:text-brand transition">Expérience</a>
+                <a href="#skills" class="hover:text-brand transition">Compétences</a>
+                <a href="#projets" class="hover:text-brand transition">Projets</a>
+            </div>
+            <a href="mailto:thomas.georjon@icloud.com" class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
+                Me Contacter
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="blob bg-sky-300 w-96 h-96 rounded-full top-0 left-0 translate-y-1/2 -translate-x-1/4"></div>
+        <div class="blob bg-indigo-200 w-80 h-80 rounded-full bottom-0 right-0 -translate-y-1/2 translate-x-1/4"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="inline-block mb-6 px-4 py-1.5 rounded-full bg-sky-50 text-brand-dark text-sm font-bold border border-sky-100 shadow-sm">
+                👋 Recherche Stage Ingénieur • Février 2026
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-slate-900 font-display tracking-tight leading-tight">
+                Thomas <br> <span class="text-brand">Georjon</span>
+            </h1>
+            <p class="text-xl text-slate-500 mb-2 font-medium">Ingénierie de la Santé & Data</p>
+            <p class="text-lg text-slate-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Étudiant en 5ᵉ année à l’EPF. Formation polyvalente en sciences de l’ingénieur, data, mécanique et gestion de projet. Dynamique, adaptable et sportif.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projets" class="px-8 py-3.5 bg-brand text-white rounded-full font-semibold hover:bg-sky-600 transition shadow-lg shadow-sky-500/30">
+                    Voir mes projets techniques
+                </a>
+                <a href="#experience" class="px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition">
+                    Mon parcours
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À Propos & Formation -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 class="text-4xl font-bold font-display mb-6 text-slate-900">À propos</h2>
+                    <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+                        Je suis actuellement en Master 2 (Cycle Ingénieur Généraliste) avec une spécialisation pointue en <strong>Ingénierie de la Santé</strong>.
+                    </p>
+                    <p class="text-slate-600 text-lg mb-8 leading-relaxed">
+                        Passionné par l'alliance de la mécanique et de la data au service de la santé, je recherche un stage d’ingénieur de fin d'études dès <strong>février 2026</strong>.
+                    </p>
+                    
+                    <div class="mt-8">
+                        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
+                            Langues
+                        </h3>
+                        <div class="space-y-4">
+                            <!-- FR -->
+                            <div>
+                                <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Français</span> <span class="font-semibold text-slate-900">Langue maternelle</span></div>
+                                <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-brand h-2 rounded-full" style="width: 100%"></div></div>
+                            </div>
+                            
+                            <!-- EN -->
+                            <div>
+                                <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Anglais (Linguaskill : 178)</span> <span class="font-semibold text-slate-900">Niveau B2+</span></div>
+                                <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-brand h-2 rounded-full" style="width: 75%"></div></div>
+                            </div>
+                            
+                            <!-- ES -->
+                            <div>
+                                <div class="flex justify-between text-sm text-slate-600 mb-1"><span>Espagnol</span> <span class="font-semibold text-slate-900">Débutant</span></div>
+                                <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-brand h-2 rounded-full" style="width: 25%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Formation -->
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                    <h3 class="text-2xl font-bold font-display mb-6 text-slate-900">Formation</h3>
+                    <div class="space-y-8 border-l-2 border-slate-200 pl-6 ml-2">
+                        
+                        <div class="relative">
+                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-brand border-4 border-white shadow-sm"></div>
+                            <h4 class="text-lg font-bold text-slate-900">Cycle Ingénieur Généraliste</h4>
+                            <p class="text-brand font-medium text-sm">EPF École d'ingénieurs • Cachan</p>
+                            <p class="text-slate-500 text-sm mt-1">Sept 2021 - Présent (Master 2 en cours)</p>
+                            <p class="text-slate-500 text-sm mt-2 italic">Spécialisation Ingénierie de la Santé</p>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-slate-300 border-4 border-white shadow-sm"></div>
+                            <h4 class="text-lg font-bold text-slate-900">Baccalauréat Scientifique</h4>
+                            <p class="text-slate-700 font-medium text-sm">Lycée Jules Ferry • Versailles</p>
+                            <p class="text-slate-500 text-sm mt-1">Juin 2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expérience Professionnelle -->
+    <section id="experience" class="py-20 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900">Expérience Professionnelle</h2>
+            
+            <div class="space-y-6">
+                <!-- Exp 1 : Louis Vuitton -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                    <div class="md:w-1/4">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Janv 2025 – Juin 2025</p>
+                        <h4 class="font-bold text-lg mt-1">Louis Vuitton</h4>
+                        <p class="text-slate-500 text-sm">Paris, France</p>
+                    </div>
+                    <div class="md:w-3/4 border-l border-slate-100 pl-0 md:pl-6 pt-4 md:pt-0">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Hôte d’accueil</h3>
+                        <p class="text-slate-600 text-sm">Expérience au sein d'une maison de luxe, gestion de la clientèle internationale et excellence du service.</p>
+                    </div>
+                </div>
+
+                <!-- Exp 2 : PT HAPETE -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                    <div class="md:w-1/4">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Sept 2024 – Déc 2024</p>
+                        <h4 class="font-bold text-lg mt-1">PT. HAPETE</h4>
+                        <p class="text-slate-500 text-sm">Surabaya, Indonésie</p>
+                    </div>
+                    <div class="md:w-3/4 border-l border-slate-100 pl-0 md:pl-6 pt-4 md:pt-0">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Stagiaire – Conception (CAO)</h3>
+                        <p class="text-slate-600 text-sm">Initiation à la conception assistée par ordinateur dans un contexte international.</p>
+                    </div>
+                </div>
+
+                <!-- Exp 3 : Balenciaga -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                    <div class="md:w-1/4">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Juin – Juil 2024</p>
+                        <h4 class="font-bold text-lg mt-1">Balenciaga</h4>
+                        <p class="text-slate-500 text-sm">Paris, France</p>
+                    </div>
+                    <div class="md:w-3/4 border-l border-slate-100 pl-0 md:pl-6 pt-4 md:pt-0">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Hôte d’accueil</h3>
+                        <p class="text-slate-600 text-sm">Accueil et orientation de la clientèle dans un environnement exigeant.</p>
+                    </div>
+                </div>
+
+                <!-- Exp 4 : Stellantis -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                    <div class="md:w-1/4">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Juin – Juil 2022</p>
+                        <h4 class="font-bold text-lg mt-1">Stellantis</h4>
+                        <p class="text-slate-500 text-sm">Poissy, France</p>
+                    </div>
+                    <div class="md:w-3/4 border-l border-slate-100 pl-0 md:pl-6 pt-4 md:pt-0">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Stagiaire – Opérateur Production</h3>
+                        <p class="text-slate-600 text-sm">Immersion en milieu industriel automobile. Compréhension des flux de production et des contraintes opérationnelles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Compétences -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900">Compétences Techniques</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Colonne 1 -->
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-4 border-b pb-2">Programmation & Data</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Python</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">MATLAB</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">SQL</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">VBA</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Arduino</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Power BI</span>
+                    </div>
+                </div>
+                <!-- Colonne 2 -->
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-4 border-b pb-2">Conception & Outils</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">SolidWorks</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">CATIA</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Vicon</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Figma</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Pack Office</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Projets (Bento Grid) -->
+    <section id="projets" class="py-24 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold font-display mb-12 text-center text-slate-900">Projets & Réalisations</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Projet 1 : AVE César (Highlight) -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 md:col-span-2 lg:col-span-2">
+                    <div class="h-48 overflow-hidden relative">
+                         <!-- REMPLACEZ LE LIEN CI-DESSOUS PAR VOTRE PHOTO -->
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800" alt="Projet Chirurgie" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2 font-display text-slate-900 group-hover:text-brand transition">Projet AVE César</h3>
+                        <p class="text-xs font-bold text-slate-400 mb-3 uppercase">Janv 2025 - Juin 2025</p>
+                        <p class="text-slate-600 mb-4 text-sm leading-relaxed text-justify">
+                            Projet de recherche scientifique pour l'amélioration de la procédure de césarienne.
+                            Réalisation d'un état de l'art complet sur les simulateurs chirurgicaux. Analyse détaillée des étapes opératoires pour identifier les besoins cliniques. Utilisation de la salle d'analyse du mouvement (Vicon) pour étudier les gestes.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Recherche</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Vicon</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Innovation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 2 : Orthèse Connectée -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 md:col-span-2 lg:col-span-1">
+                    <div class="h-48 overflow-hidden relative">
+                         <!-- REMPLACEZ LE LIEN CI-DESSOUS PAR VOTRE PHOTO -->
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Orthèse" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2 font-display text-slate-900 group-hover:text-brand transition">Orthèse Connectée</h3>
+                        <p class="text-xs font-bold text-slate-400 mb-3 uppercase">Sept 2025 - En cours</p>
+                        <p class="text-slate-600 mb-4 text-sm leading-relaxed text-justify">
+                            Conception d’une orthèse intelligente visant à optimiser la rééducation. Utilisation de la <strong>salle d'analyse du mouvement</strong> (Vicon) pour capturer la cinématique articulaire. Traitement via <strong>MATLAB</strong> et <strong>Python</strong>.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Vicon</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Python</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">CATIA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 3 : Robot Autonome -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 md:col-span-2 lg:col-span-1">
+                    <div class="h-48 overflow-hidden relative">
+                         <!-- REMPLACEZ LE LIEN CI-DESSOUS PAR VOTRE PHOTO -->
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800" alt="Robot" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2 font-display text-slate-900 group-hover:text-brand transition">Robot Autonome</h3>
+                        <p class="text-xs font-bold text-slate-400 mb-3 uppercase">Févr. 2023 - Mai 2023</p>
+                        <p class="text-slate-600 mb-4 text-sm leading-relaxed text-justify">
+                            Création intégrale d'un robot autonome capable de suivre un parcours. Modélisation et impression 3D du châssis (< 150g). Algorithme de navigation optimisé sur Arduino.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Arduino</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Impression 3D</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Gestion Projet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 4 : SQL / VBA (Highlight) -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 md:col-span-2 lg:col-span-2">
+                    <div class="h-48 overflow-hidden relative">
+                         <!-- REMPLACEZ LE LIEN CI-DESSOUS PAR VOTRE PHOTO -->
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="Code SQL" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2 font-display text-slate-900 group-hover:text-brand transition">Base de Données & IHM</h3>
+                        <p class="text-xs font-bold text-slate-400 mb-3 uppercase">Oct. 2023 - Janv. 2024</p>
+                        <p class="text-slate-600 mb-4 text-sm leading-relaxed text-justify">
+                            Développement d'une base de données <strong>SQL</strong> complexe pour une entreprise fictive (gestion stocks, commandes, RH). Implémentation de vues, procédures stockées et système de remises automatique.
+                            Création d'une application de gestion équivalente sous <strong>VBA (Excel)</strong> avec développement d'Interfaces Homme-Machine (IHM) intuitives.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">SQL</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">VBA</span>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded">Excel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 5 : Bénévolat -->
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 md:col-span-2 lg:col-span-3">
+                    <div class="h-48 overflow-hidden relative">
+                         <!-- REMPLACEZ LE LIEN CI-DESSOUS PAR VOTRE PHOTO -->
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&q=80&w=800" alt="Bénévolat" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-2 font-display text-slate-900 group-hover:text-brand transition">Bénévolat</h3>
+                        <p class="text-xs font-bold text-slate-400 mb-3 uppercase">Auxiliaires des Aveugles</p>
+                        <p class="text-slate-600 mb-4 text-sm leading-relaxed text-justify">
+                            Accompagnement de personnes malvoyantes. Développement de l'empathie, de la communication et du sens du service auprès de publics fragiles.
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-semibold bg-emerald-100 text-emerald-700 px-2 py-1 rounded">Humain</span>
+                            <span class="text-xs font-semibold bg-emerald-100 text-emerald-700 px-2 py-1 rounded">Associatif</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer class="bg-slate-900 text-white py-20 text-center relative overflow-hidden">
+        <div class="blob bg-brand w-96 h-96 rounded-full top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 blur-[100px]"></div>
+        
+        <div class="relative z-10 max-w-2xl mx-auto px-6">
+            <h2 class="text-4xl font-bold font-display mb-6">Contactez-moi</h2>
+            <p class="text-slate-400 mb-8 text-lg">
+                Disponible pour un entretien afin de discuter de mon projet professionnel et de vos opportunités de stage.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-10">
+                <a href="mailto:thomas.georjon@icloud.com" class="flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-full font-bold hover:bg-sky-50 transition">
+                    <span>✉️</span> thomas.georjon@icloud.com
+                </a>
+                <a href="tel:+33783527060" class="flex items-center gap-2 border border-slate-700 text-white px-6 py-3 rounded-full font-bold hover:bg-slate-800 transition">
+                    <span>📞</span> 07 83 52 70 60
+                </a>
+            </div>
+
+            <div class="text-slate-600 text-sm">
+                &copy; 2024 Thomas Georjon.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
