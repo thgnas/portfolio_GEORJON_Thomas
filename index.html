@@ -41,6 +41,23 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
+        /* Styles pour le Modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand selection:text-white">
@@ -69,7 +86,7 @@
 
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             
-            <!-- Photo de Profil Ajoutée -->
+            <!-- Photo de Profil -->
             <div class="mb-8 relative inline-block">
                 <div class="absolute inset-0 bg-brand blur-2xl opacity-20 rounded-full transform scale-110"></div>
                 <img src="profil.png" alt="Thomas Georjon" class="relative w-32 h-32 md:w-44 md:h-44 rounded-full object-cover border-4 border-white shadow-xl mx-auto ring-1 ring-slate-100">
@@ -86,18 +103,79 @@
             </h1>
             <p class="text-xl text-slate-500 mb-2 font-medium">Ingénierie de la Santé & Data</p>
             <p class="text-lg text-slate-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-            Ingénieur généraliste en dernière année à l’EPF, avec une spécialisation en santé, je recherche un stage à partir de février. Curieux et motivé, je souhaite relever de nouveaux défis et acquérir une expérience solide dans des environnements stimulants
+            Ingénieur généraliste en dernière année à l’EPF, avec une spécialisation en santé, je recherche un stage à partir de février. Curieux et motivé, je souhaite relever de nouveaux défis et acquérir une expérience solide dans des environnements stimulants.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#projets" class="px-8 py-3.5 bg-brand text-white rounded-full font-semibold hover:bg-sky-600 transition shadow-lg shadow-sky-500/30">
-                    Voir mes projets techniques
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#projets" class="w-full sm:w-auto px-8 py-3.5 bg-brand text-white rounded-full font-semibold hover:bg-sky-600 transition shadow-lg shadow-sky-500/30">
+                    Voir mes projets
                 </a>
-                <a href="#experience" class="px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition">
+                <a href="#experience" class="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition">
                     Mon parcours
                 </a>
+                <!-- Bouton Trigger Modal -->
+                <button onclick="toggleModal()" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full font-semibold hover:bg-indigo-100 transition flex items-center justify-center gap-2">
+                    <span>✨</span> Ce qui m'anime
+                </button>
             </div>
         </div>
     </section>
+
+    <!-- MODAL (POP-UP) -->
+    <div id="inspirationModal" class="modal fixed inset-0 z-[60] flex items-center justify-center p-4">
+        <!-- Overlay Background -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="toggleModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="modal-content bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative z-10 overflow-hidden max-h-[90vh] overflow-y-auto">
+            
+            <!-- Header du Modal -->
+            <div class="bg-gradient-to-r from-brand to-indigo-500 p-6 flex justify-between items-center sticky top-0 z-20">
+                <h3 class="text-white text-xl font-bold font-display">Ma personnalité</h3>
+                <button onclick="toggleModal()" class="text-white/80 hover:text-white transition p-2 bg-white/10 rounded-full hover:bg-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-8 space-y-8">
+                <!-- Section 1 -->
+                <div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <span class="text-2xl">🌏</span> Ce qui m’inspire
+                    </h4>
+                    <p class="text-slate-600 leading-relaxed text-justify">
+                        J’adore voyager : découvrir de nouvelles cultures, rencontrer des gens et me laisser surprendre par ce que je ne connais pas encore. Mon voyage en Indonésie m’a particulièrement marqué, autant pour la richesse de la culture que pour l’énergie du pays. J’ai aussi eu la chance d'explorer plusieurs pays d’Europe, ce qui a renforcé mon goût pour l’ouverture et la curiosité.
+                    </p>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <span class="text-2xl">🏃‍♂️</span> Ce qui me motive
+                    </h4>
+                    <p class="text-slate-600 leading-relaxed text-justify">
+                        J’aime me challenger et sortir de ma zone de confort. Le sport fait partie de mes activités, et j’apprécie me fixer des objectifs comme le semi-marathon de Paris, qui m’a permis de tester mes limites et de vivre une belle expérience.
+                    </p>
+                </div>
+
+                <!-- Section 3 -->
+                <div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <span class="text-2xl">✨</span> Ce que j’aime au quotidien
+                    </h4>
+                    <p class="text-slate-600 leading-relaxed text-justify">
+                        Je suis quelqu’un de curieux, qui aime apprendre, expérimenter et vivre de nouvelles expériences. Que ce soit à travers un voyage, un défi sportif ou une rencontre, j’aime découvrir et profiter pleinement de ce qui se présente.
+                    </p>
+                </div>
+
+                <div class="pt-4 text-center">
+                    <button onclick="toggleModal()" class="text-sm font-semibold text-slate-500 hover:text-brand underline decoration-2 underline-offset-4">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Section À Propos & Formation -->
     <section id="about" class="py-24 bg-white relative">
@@ -109,7 +187,8 @@
                         Je suis actuellement en Master 2 (Cycle Ingénieur Généraliste) avec une spécialisation en <strong>Ingénierie de la Santé</strong>.
                     </p>
                     <p class="text-slate-600 text-lg mb-8 leading-relaxed">
-                Ingénieur généraliste en dernière année à l’EPF, intéressé par les projets techniques et le travail en équipe, je cherche un stage de fin d’études dès février 2026 pour acquérir une expérience concrète et diversifiée                    </p>
+                        Ingénieur généraliste en dernière année à l’EPF, intéressé par les projets techniques et le travail en équipe, je cherche un stage de fin d’études dès février 2026 pour acquérir une expérience concrète et diversifiée.
+                    </p>
                     
                     <div class="mt-8">
                         <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
@@ -407,6 +486,13 @@
         </div>
     </footer>
 
+    <!-- Script simple pour le Modal -->
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('inspirationModal');
+            modal.classList.toggle('active');
+        }
+    </script>
+
 </body>
 </html>
-
