@@ -58,6 +58,21 @@
         .modal.active .modal-content {
             transform: scale(1);
         }
+
+        /* --- NOUVEAU : Animation au Scroll (Scroll Reveal) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Délai pour les éléments en cascade */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand selection:text-white">
@@ -72,9 +87,17 @@
                 <a href="#skills" class="hover:text-brand transition">Compétences</a>
                 <a href="#projets" class="hover:text-brand transition">Projets</a>
             </div>
-            <a href="mailto:thomas.georjon@icloud.com" class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
-                Me Contacter
-            </a>
+            
+            <!-- Bouton Contact et Social Navbar -->
+            <div class="flex items-center gap-3">
+                 <!-- LinkedIn Icon (Petit écran hidden) -->
+                <a href="https://www.linkedin.com/in/votre-profil" target="_blank" class="hidden sm:flex text-slate-400 hover:text-[#0077b5] transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:thomas.georjon@icloud.com" class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
+                    Me Contacter
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -87,35 +110,54 @@
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             
             <!-- Photo de Profil -->
-            <div class="mb-8 relative inline-block">
+            <div class="mb-8 relative inline-block reveal active">
                 <div class="absolute inset-0 bg-brand blur-2xl opacity-20 rounded-full transform scale-110"></div>
                 <img src="profil.png" alt="Thomas Georjon" class="relative w-32 h-32 md:w-44 md:h-44 rounded-full object-cover border-4 border-white shadow-xl mx-auto ring-1 ring-slate-100">
             </div>
 
-            <div class="block mb-6">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-sky-50 text-brand-dark text-sm font-bold border border-sky-100 shadow-sm">
+            <div class="block mb-6 reveal delay-100 active">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-sky-50 text-brand-dark text-sm font-bold border border-sky-100 shadow-sm flex items-center gap-2 mx-auto w-fit">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                    </span>
                      Recherche Stage Ingénieur • Février 2026
                 </div>
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-slate-900 font-display tracking-tight leading-tight">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-slate-900 font-display tracking-tight leading-tight reveal delay-200 active">
                 Thomas <br> <span class="text-brand">Georjon</span>
             </h1>
-            <p class="text-xl text-slate-500 mb-2 font-medium">Ingénierie de la Santé & Data</p>
-            <p class="text-lg text-slate-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            <p class="text-xl text-slate-500 mb-2 font-medium reveal delay-300 active">Ingénierie de la Santé & Data</p>
+            <p class="text-lg text-slate-500 mb-8 max-w-2xl mx-auto font-light leading-relaxed reveal delay-300 active">
             Ingénieur généraliste en dernière année à l’EPF, avec une spécialisation en santé, je recherche un stage à partir de février. Curieux et motivé, je souhaite relever de nouveaux défis et acquérir une expérience solide dans des environnements stimulants.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#projets" class="w-full sm:w-auto px-8 py-3.5 bg-brand text-white rounded-full font-semibold hover:bg-sky-600 transition shadow-lg shadow-sky-500/30">
+            <!-- Liens Sociaux & CV (Ajoutés) -->
+            <div class="flex justify-center gap-4 mb-10 reveal delay-300 active">
+                 <!-- LinkedIn -->
+                 <a href="#" class="p-2 text-slate-400 hover:text-[#0077b5] hover:bg-sky-50 rounded-full transition" title="LinkedIn">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- GitHub -->
+                <a href="#" class="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-full transition" title="GitHub">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                 <!-- Bouton CV (Téléchargement) -->
+                 <a href="#" class="flex items-center gap-2 px-4 py-1.5 text-sm font-semibold text-brand bg-brand/10 hover:bg-brand/20 rounded-full transition border border-brand/20" download>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Télécharger CV
+                </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center reveal delay-300 active">
+                <a href="#projets" class="w-full sm:w-auto px-8 py-3.5 bg-brand text-white rounded-full font-semibold hover:bg-sky-600 transition shadow-lg shadow-sky-500/30 transform hover:scale-105 duration-200">
                     Voir mes projets
                 </a>
-                <a href="#experience" class="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition">
-                    Mon parcours
-                </a>
+                
                 <!-- Bouton Trigger Modal -->
-                <button onclick="toggleModal()" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full font-semibold hover:bg-indigo-100 transition flex items-center justify-center gap-2">
-                    <span>✨</span> Centres d’intérêt
+                <button onclick="toggleModal()" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full font-semibold hover:bg-indigo-100 transition flex items-center justify-center gap-2 transform hover:scale-105 duration-200">
+                    <span>✨</span> Ce qui m'anime
                 </button>
             </div>
         </div>
@@ -140,31 +182,34 @@
             </div>
 
             <div class="p-8 space-y-8">
-                <!-- Section 1 -->
-                <div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce qui m’inspire
-                    </h4>
-                    <p class="text-slate-600 leading-relaxed text-justify">
-                    J’aime voyager et découvrir de nouvelles cultures. Mon voyage en Indonésie m’a particulièrement marqué, autant pour la richesse culturelle que pour l’ouverture d’esprit qu’il m’a apportée. J’ai également eu l’occasion de visiter plusieurs pays en Europe, ce qui renforce ma curiosité et mon intérêt pour les expériences variées                    </p>
-                </div>
-
-                <!-- Section 2 -->
+                <!-- Section 1 : Uniformisé -->
                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> Ce qui me motive
+                        <span class="text-2xl">🌏</span> Ce qui m’inspire
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
-                    Le sport fait partie de mes activités, et j’apprécie les défis qu’il apporte. Participer au semi-marathon de Paris m’a permis de tester mes limites et de développer discipline et persévérance, des qualités que j’aime appliquer dans d’autres domaines de ma vie.                    </p>
+                        J’adore voyager : découvrir de nouvelles cultures, rencontrer des gens et me laisser surprendre par ce que je ne connais pas encore. Mon voyage en Indonésie m’a particulièrement marqué, autant pour la richesse de la culture que pour l’énergie du pays. J’ai aussi eu la chance d'explorer plusieurs pays d’Europe, ce qui a renforcé mon goût pour l’ouverture et la curiosité.
+                    </p>
                 </div>
 
-                <!-- Section 3 -->
-                <div>
+                <!-- Section 2 : Uniforme -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl"></span> En quelques mots
+                        <span class="text-2xl">🏃‍♂️</span> Ce qui me motive
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
-                    Je suis curieux, motivé et toujours prêt à apprendre de nouvelles choses. Voyager, relever des défis ou découvrir des environnements différents me permet de rester ouvert et d’apprendre constamment.                    </p>
+                        J’aime me challenger et sortir de ma zone de confort. Le sport fait partie de mes activités, et j’apprécie me fixer des objectifs comme le semi-marathon de Paris, qui m’a permis de tester mes limites et de vivre une belle expérience.
+                    </p>
+                </div>
+
+                <!-- Section 3 : Uniformisé -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <span class="text-2xl">✨</span> Ce que j’aime au quotidien
+                    </h4>
+                    <p class="text-slate-600 leading-relaxed text-justify">
+                        Je suis quelqu’un de curieux, qui aime apprendre, expérimenter et vivre de nouvelles expériences. Que ce soit à travers un voyage, un défi sportif ou une rencontre, j’aime découvrir et profiter pleinement de ce qui se présente.
+                    </p>
                 </div>
 
                 <div class="pt-4 text-center">
@@ -178,7 +223,7 @@
     <section id="about" class="py-24 bg-white relative">
         <div class="max-w-5xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-16 items-start">
-                <div>
+                <div class="reveal">
                     <h2 class="text-4xl font-bold font-display mb-6 text-slate-900">À propos</h2>
                     <p class="text-slate-600 text-lg mb-6 leading-relaxed">
                         Je suis actuellement en Master 2 (Cycle Ingénieur Généraliste) avec une spécialisation en <strong>Ingénierie de la Santé</strong>.
@@ -211,24 +256,35 @@
                                 <div class="w-full bg-slate-100 rounded-full h-2"><div class="bg-brand h-2 rounded-full" style="width: 25%"></div></div>
                             </div>
                         </div>
+
+                         <!-- Permis B ajouté ici -->
+                        <div class="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+                             <div class="bg-slate-100 p-2 rounded-lg text-slate-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /> <!-- Icone générique pour illustrer la mobilité -->
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                             </div>
+                             <span class="text-slate-900 font-bold">Permis B</span>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Timeline Formation -->
-                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 reveal delay-200">
                     <h3 class="text-2xl font-bold font-display mb-6 text-slate-900">Formation</h3>
                     <div class="space-y-8 border-l-2 border-slate-200 pl-6 ml-2">
                         
-                        <div class="relative">
-                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-brand border-4 border-white shadow-sm"></div>
+                        <div class="relative group">
+                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-brand border-4 border-white shadow-sm group-hover:scale-125 transition"></div>
                             <h4 class="text-lg font-bold text-slate-900">Cycle Ingénieur Généraliste</h4>
                             <p class="text-brand font-medium text-sm">EPF École d'ingénieurs • Cachan</p>
                             <p class="text-slate-500 text-sm mt-1">Sept 2021 - Présent (Master 2 en cours)</p>
                             <p class="text-slate-500 text-sm mt-2 italic">Spécialisation Ingénierie de la Santé</p>
                         </div>
 
-                        <div class="relative">
-                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-slate-300 border-4 border-white shadow-sm"></div>
+                        <div class="relative group">
+                            <div class="absolute -left-[33px] top-1.5 h-4 w-4 rounded-full bg-slate-300 border-4 border-white shadow-sm group-hover:scale-125 transition"></div>
                             <h4 class="text-lg font-bold text-slate-900">Baccalauréat Scientifique</h4>
                             <p class="text-slate-700 font-medium text-sm">Lycée Jules Ferry • Versailles</p>
                             <p class="text-slate-500 text-sm mt-1">Juin 2021</p>
@@ -242,11 +298,11 @@
     <!-- Expérience Professionnelle -->
     <section id="experience" class="py-20 bg-slate-50">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900">Expérience Professionnelle</h2>
+            <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900 reveal">Expérience Professionnelle</h2>
             
             <div class="space-y-6">
                 <!-- Exp 1 : Louis Vuitton -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Janv 2025 – Juin 2025</p>
                         <h4 class="font-bold text-lg mt-1">Louis Vuitton</h4>
@@ -259,7 +315,7 @@
                 </div>
 
                 <!-- Exp 2 : PT HAPETE -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Sept 2024 – Déc 2024</p>
                         <h4 class="font-bold text-lg mt-1">PT. HAPETE</h4>
@@ -272,7 +328,7 @@
                 </div>
 
                 <!-- Exp 3 : Balenciaga -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Juin – Juil 2024</p>
                         <h4 class="font-bold text-lg mt-1">Balenciaga</h4>
@@ -285,7 +341,7 @@
                 </div>
 
                 <!-- Exp 4 : Stellantis -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center gap-6 hover:border-brand/30 transition card-hover reveal">
                     <div class="md:w-1/4">
                         <p class="text-sm font-bold text-slate-400 uppercase tracking-wide">Juin – Juil 2022</p>
                         <h4 class="font-bold text-lg mt-1">Stellantis</h4>
@@ -303,30 +359,30 @@
     <!-- Section Compétences -->
     <section id="skills" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900">Compétences Techniques</h2>
+            <h2 class="text-3xl font-bold font-display mb-12 text-center text-slate-900 reveal">Compétences Techniques</h2>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Colonne 1 -->
-                <div>
+                <div class="reveal delay-100">
                     <h4 class="font-bold text-slate-900 mb-4 border-b pb-2">Programmation & Data</h4>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Python</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">MATLAB</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">SQL</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">VBA</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Arduino</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Power BI</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Python</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">MATLAB</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">SQL</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">VBA</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Arduino</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Power BI</span>
                     </div>
                 </div>
                 <!-- Colonne 2 -->
-                <div>
+                <div class="reveal delay-200">
                     <h4 class="font-bold text-slate-900 mb-4 border-b pb-2">Conception & Outils</h4>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">SolidWorks</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">CATIA</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Vicon</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Figma</span>
-                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm">Pack Office</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">SolidWorks</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">CATIA</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Vicon</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Figma</span>
+                        <span class="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium text-sm hover:bg-brand hover:text-white transition cursor-default">Pack Office</span>
                     </div>
                 </div>
             </div>
@@ -336,13 +392,13 @@
     <!-- Section Projets (VERTICAL) -->
     <section id="projets" class="py-24 bg-slate-50">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold font-display mb-12 text-center text-slate-900">Projets & Réalisations</h2>
+            <h2 class="text-4xl font-bold font-display mb-12 text-center text-slate-900 reveal">Projets & Réalisations</h2>
             
             <!-- CONTENEUR VERTICAL -->
             <div class="flex flex-col gap-12 max-w-3xl mx-auto">
                 
                 <!-- Projet 1 : AVE César -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 reveal">
                     <div class="h-64 overflow-hidden relative">
                          <!-- Image mise à jour -->
                         <img src="avecesar.jpg" alt="Projet Chirurgie - AVE César" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -363,7 +419,7 @@
                 </div>
 
                 <!-- Projet 2 : Orthèse Connectée (MOSAÏQUE) -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 reveal">
                     <!-- DÉBUT DU BLOC MOSAÏQUE ORTHÈSE -->
                     <div class="h-64 grid grid-cols-3 gap-0.5 bg-slate-100 overflow-hidden">
                         <!-- Grande image principale -->
@@ -396,7 +452,7 @@
                 </div>
 
                 <!-- Projet 3 : Robot Autonome -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 reveal">
                     <div class="h-64 overflow-hidden relative">
                          <!-- Image mise à jour (Mecatro) -->
                         <img src="mecatro.png" alt="Robot Autonome" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -416,7 +472,7 @@
                 </div>
 
                 <!-- Projet 4 : SQL / VBA -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 reveal">
                     <div class="h-64 overflow-hidden relative">
                          <!-- Placeholder SQL (Pas d'image fournie pour celui-ci) -->
                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="Code SQL" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -437,7 +493,7 @@
                 </div>
 
                 <!-- Projet 5 : Bénévolat -->
-                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300">
+                <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 card-hover transition-all duration-300 reveal">
                     <div class="h-64 overflow-hidden relative">
                          <!-- Image mise à jour (Benevolat) -->
                         <img src="benevolat.png" alt="Bénévolat" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -469,11 +525,23 @@
             </p>
             
             <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-10">
-                <a href="mailto:thomas.georjon@icloud.com" class="flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-full font-bold hover:bg-sky-50 transition">
+                <a href="mailto:thomas.georjon@icloud.com" class="flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-full font-bold hover:bg-sky-50 transition transform hover:scale-105">
                     <span>✉️</span> thomas.georjon@icloud.com
                 </a>
-                <a href="tel:+33783527060" class="flex items-center gap-2 border border-slate-700 text-white px-6 py-3 rounded-full font-bold hover:bg-slate-800 transition">
+                <a href="tel:+33783527060" class="flex items-center gap-2 border border-slate-700 text-white px-6 py-3 rounded-full font-bold hover:bg-slate-800 transition transform hover:scale-105">
                     <span>📞</span> 07 83 52 70 60
+                </a>
+            </div>
+            
+            <!-- Réseaux Sociaux Footer -->
+            <div class="flex justify-center gap-6 mb-8">
+                 <!-- LinkedIn -->
+                 <a href="#" class="text-slate-400 hover:text-white transition transform hover:scale-110">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- GitHub -->
+                <a href="#" class="text-slate-400 hover:text-white transition transform hover:scale-110">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
             </div>
 
@@ -483,14 +551,35 @@
         </div>
     </footer>
 
-    <!-- Script simple pour le Modal -->
+    <!-- Scripts pour le Modal et l'Animation -->
     <script>
+        // Toggle Modal
         function toggleModal() {
             const modal = document.getElementById('inspirationModal');
             modal.classList.toggle('active');
         }
+
+        // Animation au Scroll (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1, // Déclenche quand 10% de l'élément est visible
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optionnel : arrêter d'observer une fois animé
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
     </script>
 
 </body>
 </html>
-
