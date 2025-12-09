@@ -123,11 +123,11 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
-        /* --- FLIP CARD STYLES (NOUVEAU) --- */
+        /* --- FLIP CARD STYLES (Modifié: plus petit) --- */
         .flip-card {
             background-color: transparent;
             width: 100%;
-            height: 120px; /* Hauteur fixe pour uniformité */
+            height: 80px; /* Réduit de 120px à 80px */
             perspective: 1000px;
             cursor: pointer;
         }
@@ -151,11 +151,11 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 1rem;
+            border-radius: 0.75rem; /* Arrondi légèrement réduit */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.5rem; /* Padding réduit */
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -1px rgb(0 0 0 / 0.06);
         }
 
@@ -319,7 +319,7 @@
                 <!-- Section 2 : Uniforme -->
                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand/30 transition-colors">
                     <h4 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                        <span class="text-2xl">🏃‍♂️</span> Ce qui me motive
+                        <span class="text-2xl"></span> Ce qui me motive
                     </h4>
                     <p class="text-slate-600 leading-relaxed text-justify">
                         J’aime me challenger et sortir de ma zone de confort. Le sport fait partie de mes activités, et j’apprécie me fixer des objectifs comme le semi-marathon de Paris, qui m’a permis de tester mes limites et de vivre une belle expérience.
@@ -530,8 +530,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Travail d’équipe</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Travail d’équipe</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Capable de collaborer efficacement</p>
@@ -545,8 +544,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Autonomie</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Autonomie</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Sait gérer ses projets seul</p>
@@ -560,8 +558,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Curiosité</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Curiosité</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Toujours prêt à découvrir de nouvelles choses</p>
@@ -575,8 +572,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Adaptabilité</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Adaptabilité</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Sait s’adapter à différents environnements</p>
@@ -590,8 +586,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Esprit d’initiative</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Esprit d’initiative</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Aime se lancer des objectifs et relever des défis</p>
@@ -605,8 +600,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Organisation</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Organisation</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Sait planifier et prioriser ses tâches</p>
@@ -620,8 +614,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Persévérance</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Persévérance</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Ne se décourage pas facilement</p>
@@ -635,8 +628,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Leadership</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Leadership</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Sait motiver et guider une équipe</p>
@@ -650,8 +642,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Esprit critique</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Esprit critique</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Analyse et évalue les situations avant d’agir</p>
@@ -665,8 +656,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Empathie</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Empathie</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Comprend les besoins et points de vue des autres</p>
@@ -680,8 +670,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Gestion du stress</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Gestion du stress</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Garde son calme et sa clarté dans les situations tendues</p>
@@ -695,8 +684,7 @@
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front flex-col gap-2">
-                                <span class="text-2xl"></span>
-                                <h4 class="font-bold text-slate-800">Ouverture d’esprit</h4>
+                                <h4 class="font-bold text-slate-800 text-base">Ouverture d’esprit</h4>
                             </div>
                             <div class="flip-card-back">
                                 <p class="text-sm font-medium">Accepte et valorise les perspectives différentes</p>
@@ -998,4 +986,3 @@
 
 </body>
 </html>
-
